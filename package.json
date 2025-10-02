@@ -1,0 +1,13 @@
+{
+  "name": "horizon-medidate",
+  "version": "1.0.0",
+  "description": "A simple meditation timer app",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0"
+  }
+}
