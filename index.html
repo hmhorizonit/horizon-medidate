@@ -10,16 +10,12 @@
     <div class="container">
         <h1>Meditation Space</h1>
         <div class="timer-controls">
-            <button data-minutes="5">5 min</button>
-            <button data-minutes="10">10 min</button>
-            <button data-minutes="15">15 min</button>
-        </div>
-        <div class="custom-time">
-            <input type="number" id="custom-minutes" placeholder="Custom minutes">
-            <button id="start-custom">Start Custom</button>
+            <button class="timer-option" data-minutes="10">10 min</button>
+            <button class="timer-option active" data-minutes="15">15 min</button>
+            <button class="timer-option" data-minutes="20">20 min</button>
         </div>
         <div class="timer-display">
-            <span id="time">00:00</span>
+            <span id="time">15:00</span>
         </div>
         <div class="controls">
             <button id="start-btn">Start Meditation</button>
