@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Meditation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Meditation Space</h1>
+        <div class="timer-controls">
+            <button data-minutes="5">5 min</button>
+            <button data-minutes="10">10 min</button>
+            <button data-minutes="15">15 min</button>
+        </div>
+        <div class="custom-time">
+            <input type="number" id="custom-minutes" placeholder="Custom minutes">
+            <button id="start-custom">Start Custom</button>
+        </div>
+        <div class="timer-display">
+            <span id="time">00:00</span>
+        </div>
+        <div class="controls">
+            <button id="start-btn">Start Meditation</button>
+            <button id="stop-btn" disabled>End Session</button>
+        </div>
+        <audio id="background-audio" loop>
+            <source src="assets/background.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="bell-audio">
+            <source src="assets/bell.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
