@@ -5,42 +5,58 @@ class MeditationApp {
         this.startBtn = document.getElementById('start-btn');
         this.stopBtn = document.getElementById('stop-btn');
         this.timeDisplay = document.getElementById('time');
+        this.timerOptions = document.querySelectorAll('.timer-option');
+        
         this.timer = null;
-        this.remainingTime = 0;
+        this.remainingTime = 15 * 60; // Default to 15 minutes
+        this.selectedMinutes = 15;
         
         this.initializeEventListeners();
+        this.updateDisplay();
     }
     
     initializeEventListeners() {
         this.startBtn.addEventListener('click', () => this.startMeditation());
         this.stopBtn.addEventListener('click', () => this.stopMeditation());
         
-        document.querySelectorAll('.timer-controls button').forEach(btn => {
+        // Timer option buttons
+        this.timerOptions.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const minutes = parseInt(e.target.dataset.minutes);
                 this.setTimer(minutes);
+                this.updateActiveButton(e.target);
             });
         });
-        
-        document.getElementById('start-custom').addEventListener('click', () => {
-            const customMinutes = parseInt(document.getElementById('custom-minutes').value);
-            if (customMinutes > 0) {
-                this.setTimer(customMinutes);
-            }
-        });
+    }
+    
+    updateActiveButton(activeButton) {
+        this.timerOptions.forEach(btn => btn.classList.remove('active'));
+        activeButton.classList.add('active');
     }
     
     setTimer(minutes) {
+        this.selectedMinutes = minutes;
         this.remainingTime = minutes * 60;
         this.updateDisplay();
+        
+        // Reset buttons if changing time during meditation
+        if (this.timer) {
+            this.stopMeditation();
+        }
     }
     
     startMeditation() {
-        if (this.remainingTime <= 0) return;
+        if (this.remainingTime <= 0) {
+            this.remainingTime = this.selectedMinutes * 60;
+            this.updateDisplay();
+        }
         
         this.backgroundAudio.play().catch(e => console.log('Audio play failed:', e));
         this.startBtn.disabled = true;
         this.stopBtn.disabled = false;
+        
+        // Disable timer options during meditation
+        this.timerOptions.forEach(btn => btn.disabled = true);
         
         this.timer = setInterval(() => {
             this.remainingTime--;
@@ -54,6 +70,8 @@ class MeditationApp {
     
     stopMeditation() {
         this.endMeditation();
+        this.remainingTime = this.selectedMinutes * 60;
+        this.updateDisplay();
     }
     
     endMeditation() {
@@ -65,7 +83,9 @@ class MeditationApp {
         
         this.startBtn.disabled = false;
         this.stopBtn.disabled = true;
-        this.timeDisplay.textContent = '00:00';
+        
+        // Re-enable timer options
+        this.timerOptions.forEach(btn => btn.disabled = false);
     }
     
     updateDisplay() {
